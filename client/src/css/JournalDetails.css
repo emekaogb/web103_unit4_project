@@ -1,0 +1,79 @@
+.journal-details {
+    max-width: 520px;
+    margin: 60px auto;
+    padding: 40px;
+    background: rgba(69, 69, 78, 0.17);
+    backdrop-filter: blur(6px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.journal-details-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.journal-details-icon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    flex-shrink: 0;
+}
+
+.journal-details h2 {
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.journal-details p {
+    font-size: 1rem;
+    margin: 10px 0;
+    opacity: 0.9;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+.journal-details p:last-of-type {
+    border-bottom: none;
+    font-size: 1.15rem;
+}
+
+.journal-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.journal-actions button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.journal-actions button:first-child {
+    background: rgba(115, 2, 12, 0.8);
+    color: #fff;
+}
+
+.journal-actions button:first-child:hover {
+    background: rgba(115, 2, 12, 1);
+}
+
+.journal-actions button.secondary {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.journal-actions button.secondary:hover {
+    background: rgba(220, 50, 50, 0.6);
+}

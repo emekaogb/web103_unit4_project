@@ -1,5 +1,10 @@
 const BASE_URL = '/api/journals'
 
+export const getJournal = async (id) => {
+    const response = await fetch(`${BASE_URL}/${id}`)
+    return response.json()
+}
+
 export const getAllJournals = async () => {
     const response = await fetch(BASE_URL)
     return response.json()
