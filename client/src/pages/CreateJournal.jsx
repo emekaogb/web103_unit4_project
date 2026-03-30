@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { createJournal } from '../../services/JournalsAPI'
 import { calcPrice, SIZE_PRICES, PAPER_PRICES, ACCESSORY_PRICES } from '../utilities/calcprice'
+import { getValidationError } from '../utilities/validation'
 import '../css/JournalForm.css'
 
 const COLORS = ['maroon', 'brown', 'coral', 'darkkhaki', 'rosybrown', 'darkgreen', 'cornflowerblue', 'darkslateblue']
@@ -22,6 +23,7 @@ const CreateJournal = () => {
     })
 
     const price = calcPrice(form)
+    const validationError = getValidationError(form)
     const isLast = step === TABS.length - 1
 
     const handleChange = (e) => {
@@ -125,17 +127,21 @@ const CreateJournal = () => {
 
                 {step === 4 && (
                     <div className='option-list'>
-                        {Object.entries(PAPER_PRICES).map(([type, cost]) => (
-                            <button
-                                key={type}
-                                type='button'
-                                className={`option-btn ${form.paper === type ? 'selected' : ''}`}
-                                onClick={() => setForm({ ...form, paper: type })}
-                            >
-                                <span>{type}</span>
-                                <span>{cost > 0 ? `+$${cost}` : 'free'}</span>
-                            </button>
-                        ))}
+                        {Object.entries(PAPER_PRICES).map(([type, cost]) => {
+                            const invalid = getValidationError({ size: form.size, paper: type })
+                            return (
+                                <button
+                                    key={type}
+                                    type='button'
+                                    className={`option-btn ${form.paper === type ? 'selected' : ''} ${invalid ? 'disabled' : ''}`}
+                                    onClick={() => !invalid && setForm({ ...form, paper: type })}
+                                    title={invalid ?? ''}
+                                >
+                                    <span>{type}</span>
+                                    <span>{invalid ? 'unavailable' : cost > 0 ? `+$${cost}` : 'free'}</span>
+                                </button>
+                            )
+                        })}
                     </div>
                 )}
 
@@ -156,6 +162,7 @@ const CreateJournal = () => {
                 )}
             </div>
 
+            {validationError && <p className='validation-error'>{validationError}</p>}
             <p className='price-display'>Total: <strong>${price}</strong></p>
 
             <div className='tab-nav'>
@@ -172,7 +179,7 @@ const CreateJournal = () => {
                         type='button'
                         className='nav-btn submit-btn'
                         onClick={handleSubmit}
-                        disabled={!form.name}
+                        disabled={!form.name || !!validationError}
                     >
                         Create Journal
                     </button>
