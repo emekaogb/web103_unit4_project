@@ -1,7 +1,7 @@
 import React from 'react'
 import '../App.css'
 
-const EditCar = () => {
+const EditJournal = () => {
     
     return (
         <div>
@@ -10,4 +10,4 @@ const EditCar = () => {
     )
 }
 
-export default EditCar
+export default EditJournal
